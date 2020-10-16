@@ -1,0 +1,25 @@
+version: '3.7'
+
+services:
+    nginx:
+        image: nginx:alpine
+        volumes:
+            - ./symfony:/var/www/sf
+            - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
+        ports:
+            - 8080:80
+        networks:
+            - network
+    php:
+        build:
+            context: .
+            dockerfile: ./docker/php/Dockerfile
+        environment:
+            APP_ENV: dev
+        volumes:
+            - ./symfony:/var/www/sf
+        networks:
+            - network
+
+networks:
+    network:
