@@ -4,6 +4,10 @@ namespace App\WeatherService\WeatherDataProvider\Resolver;
 
 use App\WeatherService\WeatherDataProvider\WeatherDataProviderInterface;
 
+/**
+ * WeatherDataProviderResolverInterface defines the interface for retrieving provider by its name
+ * @package App\WeatherService\WeatherDataProvider\Resolver
+ */
 interface WeatherDataProviderResolverInterface
 {
     /**

@@ -22,6 +22,13 @@ class HashMapWeatherDataProviderResolver implements WeatherDataProviderResolverI
         }
     }
 
+    /**
+     * Returns provider associated with a given name and throws if the provider could not be found
+     *
+     * @param string $providerName
+     * @return WeatherDataProviderInterface
+     * @throws WeatherDataProviderNotFoundException
+     */
     public function resolve(string $providerName): WeatherDataProviderInterface
     {
         if(!isset($this->providerMap[$providerName])) {
