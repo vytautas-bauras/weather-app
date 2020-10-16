@@ -21,7 +21,8 @@ interface WeatherDataProviderInterface
      * Provides current weather conditions in a given city
      *
      * @param string $city
+     * @param string $apiKey
      * @return WeatherDataInterface
      */
-    public function getWeatherDataForCity(string $city): WeatherDataInterface;
+    public function getWeatherDataForCity(string $city, string $apiKey): WeatherDataInterface;
 }

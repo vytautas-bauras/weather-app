@@ -26,14 +26,15 @@ class ProxyWeatherService implements WeatherServiceInterface
      * Proxies the request to the specified provider and forwards the data
      *
      * @param string $city
+     * @param string $apiKey
      * @param string|null $provider
      * @return WeatherDataInterface
      * @throws \App\WeatherService\WeatherDataProvider\Resolver\WeatherDataProviderNotFoundException
      */
-    public function getWeatherDataForCity(string $city, string $provider = null): WeatherDataInterface
+    public function getWeatherDataForCity(string $city, string $apiKey, string $provider = null): WeatherDataInterface
     {
         $provider = $this->providerResolver->resolve($provider);
 
-        return $provider->getWeatherDataForCity($city);
+        return $provider->getWeatherDataForCity($city, $apiKey);
     }
 }

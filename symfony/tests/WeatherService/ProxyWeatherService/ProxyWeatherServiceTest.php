@@ -13,13 +13,14 @@ class ProxyWeatherServiceTest extends TestCase
     public function testProxiesToResolvedProvider()
     {
         $city = 'vilnius';
+        $apiKey = 'api2key';
         $providerName = 'openweather';
 
         $weatherDataStub = $this->createMock(WeatherDataInterface::class);
 
         $providerStub = $this->createMock(WeatherDataProviderInterface::class);
         $providerStub->method('getProviderName')->willReturn($providerName);
-        $providerStub->method('getWeatherDataForCity')->with($city)->willReturn($weatherDataStub);
+        $providerStub->method('getWeatherDataForCity')->with($city, $apiKey)->willReturn($weatherDataStub);
 
         $resolverStub = $this->createMock(WeatherDataProviderResolverInterface::class);
         $resolverStub->expects($this->once())
@@ -31,7 +32,7 @@ class ProxyWeatherServiceTest extends TestCase
 
         $this->assertEquals(
             $weatherDataStub,
-            $proxyWeatherService->getWeatherDataForCity($city, $providerName)
+            $proxyWeatherService->getWeatherDataForCity($city, $apiKey, $providerName)
         );
     }
 }
