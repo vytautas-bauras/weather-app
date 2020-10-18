@@ -40,4 +40,12 @@ class HashMapWeatherDataProviderResolverTest extends TestCase
         $this->expectException(WeatherDataProviderNotFoundException::class);
         $this->resolver->resolve('no_such_provider');
     }
+
+    public function testListsAvailableProviders()
+    {
+        $this->assertEquals(
+            ['provider'],
+            $this->resolver->getAvailableProviders()
+        );
+    }
 }

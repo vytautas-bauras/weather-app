@@ -15,7 +15,7 @@ class HashMapWeatherDataProviderResolver implements WeatherDataProviderResolverI
     /**
      * @param WeatherDataProviderInterface[] $providers
      */
-    public function __construct(array $providers)
+    public function __construct(iterable $providers)
     {
         foreach($providers as $provider) {
             $this->providerMap[$provider->getProviderName()] = $provider;
@@ -36,5 +36,10 @@ class HashMapWeatherDataProviderResolver implements WeatherDataProviderResolverI
         }
 
         return $this->providerMap[$providerName];
+    }
+
+    public function getAvailableProviders()
+    {
+        return array_keys($this->providerMap);
     }
 }

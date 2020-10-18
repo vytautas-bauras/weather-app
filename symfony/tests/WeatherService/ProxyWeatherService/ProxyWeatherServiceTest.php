@@ -10,29 +10,37 @@ use PHPUnit\Framework\TestCase;
 
 class ProxyWeatherServiceTest extends TestCase
 {
+    const SAMPLE_CITY = 'vilnius';
+    const SAMPLE_API_KEY = 'api2key';
+    const SAMPLE_PROVIDER = 'openweather';
+
     public function testProxiesToResolvedProvider()
     {
-        $city = 'vilnius';
-        $apiKey = 'api2key';
-        $providerName = 'openweather';
-
         $weatherDataStub = $this->createMock(WeatherDataInterface::class);
 
         $providerStub = $this->createMock(WeatherDataProviderInterface::class);
-        $providerStub->method('getProviderName')->willReturn($providerName);
-        $providerStub->method('getWeatherDataForCity')->with($city, $apiKey)->willReturn($weatherDataStub);
+        $providerStub->method('getWeatherDataForCity')->with(self::SAMPLE_CITY, self::SAMPLE_API_KEY)->willReturn($weatherDataStub);
 
         $resolverStub = $this->createMock(WeatherDataProviderResolverInterface::class);
-        $resolverStub->expects($this->once())
-            ->method('resolve')
-            ->with($providerName)
+        $resolverStub->method('resolve')
+            ->with(self::SAMPLE_PROVIDER)
             ->willReturn($providerStub);
+
+        $resolverStub->method('getAvailableProviders')->willReturn([self::SAMPLE_PROVIDER]);
 
         $proxyWeatherService = new ProxyWeatherService($resolverStub);
 
         $this->assertEquals(
             $weatherDataStub,
-            $proxyWeatherService->getWeatherDataForCity($city, $apiKey, $providerName)
+            $proxyWeatherService->getWeatherDataForCity(self::SAMPLE_CITY, self::SAMPLE_API_KEY, self::SAMPLE_PROVIDER)
         );
+
+        $this->assertEquals(
+            $weatherDataStub,
+            $proxyWeatherService->getWeatherDataForCity(self::SAMPLE_CITY, self::SAMPLE_API_KEY),
+            'Proxy service could not get weather data by selecting a default provider.'
+        );
+
+        return $proxyWeatherService;
     }
 }

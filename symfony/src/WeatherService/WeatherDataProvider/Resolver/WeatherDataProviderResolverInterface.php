@@ -18,4 +18,11 @@ interface WeatherDataProviderResolverInterface
      * @throws WeatherDataProviderNotFoundException
      */
     public function resolve(string $providerName): WeatherDataProviderInterface;
+
+    /**
+     * Returns a string array with provider names
+     *
+     * @return string[]
+     */
+    public function getAvailableProviders();
 }
