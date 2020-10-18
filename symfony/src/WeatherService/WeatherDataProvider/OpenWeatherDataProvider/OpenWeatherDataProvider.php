@@ -63,7 +63,7 @@ class OpenWeatherDataProvider implements WeatherDataProviderInterface
         $statusCode = $response->getStatusCode();
         if($statusCode === 401) {
             throw new OpenWeatherAPIException("Access was denied to OpenWeatherMap API. Please verify the API key.");
-        } else if($statusCode === 403) {
+        } else if($statusCode === 404) {
             throw new OpenWeatherAPIException("Weather data for city [" . $city . "] could not be found using OpenWeatherMap API.");
         } else if($statusCode >= 400) {
             throw new OpenWeatherAPIException("An error occurred trying to get data from OpenWeatherMap API.");

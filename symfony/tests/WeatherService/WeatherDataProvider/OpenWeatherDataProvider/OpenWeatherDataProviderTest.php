@@ -42,12 +42,13 @@ class OpenWeatherDataProviderTest extends TestCase
     {
         $client = new MockHttpClient(function($method, $url, $options) {
             return new MockResponse(self::CITY_NOT_FOUND_API_RESPONSE, [
-                'http_code' => 401
+                'http_code' => 404
             ]);
         });
 
         $openWeatherDataProvider = new OpenWeatherDataProvider($client, self::API_URL);
         $this->expectException(OpenWeatherAPIException::class);
+        $this->expectExceptionMessage("Weather data for city [London] could not be found using OpenWeatherMap API.");
         $openWeatherDataProvider->getWeatherDataForCity(self::SAMPLE_CITY, self::API_KEY);
     }
 
@@ -55,12 +56,13 @@ class OpenWeatherDataProviderTest extends TestCase
     {
         $client = new MockHttpClient(function($method, $url, $options) {
             return new MockResponse(self::BAD_API_KEY_API_RESPONSE, [
-                'http_code' => 403
+                'http_code' => 401
             ]);
         });
 
         $openWeatherDataProvider = new OpenWeatherDataProvider($client, self::API_URL);
         $this->expectException(OpenWeatherAPIException::class);
+        $this->expectExceptionMessage("Access was denied to OpenWeatherMap API. Please verify the API key.");
         $openWeatherDataProvider->getWeatherDataForCity(self::SAMPLE_CITY, self::API_KEY);
     }
 
