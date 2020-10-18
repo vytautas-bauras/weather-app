@@ -48,6 +48,7 @@ class OpenWeatherDataProvider implements WeatherDataProviderInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
+     * @throws OpenWeatherAPIException
      */
     public function getWeatherDataForCity(string $city, string $apiKey): WeatherDataInterface
     {
@@ -58,6 +59,15 @@ class OpenWeatherDataProvider implements WeatherDataProviderInterface
                 'units' => 'metric'
             ]
         ]);
+
+        $statusCode = $response->getStatusCode();
+        if($statusCode === 401) {
+            throw new OpenWeatherAPIException("Access was denied to OpenWeatherMap API. Please verify the API key.");
+        } else if($statusCode === 403) {
+            throw new OpenWeatherAPIException("Weather data for city [" . $city . "] could not be found using OpenWeatherMap API.");
+        } else if($statusCode >= 400) {
+            throw new OpenWeatherAPIException("An error occurred trying to get data from OpenWeatherMap API.");
+        }
 
         return new OpenWeatherResponseToWeatherDataAdapter($response->toArray());
     }
