@@ -14,7 +14,7 @@ abstract class AbstractAPIController extends AbstractController
     {
         return new JsonResponse([
             'error' => $errorMessage
-        ]);
+        ], $httpCode);
     }
 
     protected function createErrorResponseFromLoggableException(ResponseLoggableException $exception)
