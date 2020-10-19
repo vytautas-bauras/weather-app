@@ -14,6 +14,11 @@ abstract class AbstractAPIController extends AbstractController
 {
     const DEFAULT_ERROR_MESSAGE = 'An error occurred while processing the request.';
 
+    /**
+     * @param int $httpCode
+     * @param string $errorMessage
+     * @return JsonResponse
+     */
     protected function createErrorResponse($httpCode = 500, $errorMessage = self::DEFAULT_ERROR_MESSAGE)
     {
         return new JsonResponse([
@@ -21,6 +26,10 @@ abstract class AbstractAPIController extends AbstractController
         ], $httpCode);
     }
 
+    /**
+     * @param ResponseLoggableException $exception
+     * @return JsonResponse
+     */
     protected function createErrorResponseFromLoggableException(ResponseLoggableException $exception)
     {
         return $this->createErrorResponse(
@@ -29,6 +38,10 @@ abstract class AbstractAPIController extends AbstractController
         );
     }
 
+    /**
+     * @param \Exception $exception
+     * @return JsonResponse
+     */
     protected function createErrorResponseFromException(\Exception $exception)
     {
         if($exception instanceof ResponseLoggableException) {

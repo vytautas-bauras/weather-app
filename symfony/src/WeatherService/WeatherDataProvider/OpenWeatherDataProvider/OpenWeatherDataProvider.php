@@ -6,6 +6,10 @@ use App\WeatherService\WeatherDataInterface;
 use App\WeatherService\WeatherDataProvider\WeatherDataProviderInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
+/**
+ * Class OpenWeatherDataProvider
+ * @package App\WeatherService\WeatherDataProvider\OpenWeatherDataProvider
+ */
 class OpenWeatherDataProvider implements WeatherDataProviderInterface
 {
     /**
