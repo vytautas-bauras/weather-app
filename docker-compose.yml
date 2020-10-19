@@ -20,6 +20,7 @@ services:
             - ./symfony:/var/www/sf
         networks:
             - network
+        working_dir: /var/www/sf
 
 networks:
     network:
