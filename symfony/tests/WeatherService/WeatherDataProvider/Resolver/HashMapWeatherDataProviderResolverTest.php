@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\WeatherService\WeatherDataProvider\WeatherDataProviderInterface;
+namespace App\Tests\WeatherService\WeatherDataProvider\Resolver;
 
 use App\WeatherService\WeatherDataProvider\Resolver\HashMapWeatherDataProviderResolver;
 use App\WeatherService\WeatherDataProvider\Resolver\WeatherDataProviderNotFoundException;
