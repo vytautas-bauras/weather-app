@@ -29,7 +29,7 @@
             <div class="form-group">
                 <label for="cityInput">City</label>
                 <div class="input-group mb-3">
-                    <input id="cityInput" type="text" class="form-control" value="Vilnius" placeholder="City"
+                    <input id="cityInput" type="text" class="form-control" value="North Little Rock" placeholder="City"
                            aria-label="City" aria-describedby="button-submit">
                     <div class="input-group-append">
                         <button class="btn btn-success" type="submit" id="button-submit">✓</button>
@@ -85,12 +85,17 @@
         };
     }
 
+    function sanitizeForUseAsId(value) {
+        return value.replace(/ /g, "");
+    }
+
     function createTabId(city, api_key) {
-        return `tab-${city}-${api_key}`;
+        console.log(city)
+        return `tab-${sanitizeForUseAsId(city)}-${sanitizeForUseAsId(api_key)}`;
     }
 
     function createTabContentId(city, api_key) {
-        return `tab-content-${city}-${api_key}`;
+        return `tab-content-${sanitizeForUseAsId(city)}-${sanitizeForUseAsId(api_key)}`;
     }
 
     function createAndAppendTab(tabId, tabContentId, cityName) {
