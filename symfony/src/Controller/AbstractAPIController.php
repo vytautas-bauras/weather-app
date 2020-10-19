@@ -6,6 +6,10 @@ use App\Exception\ResponseLoggableException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
+/**
+ * AbstractAPIController provides helper methods for handling API requests
+ * @package App\Controller
+ */
 abstract class AbstractAPIController extends AbstractController
 {
     const DEFAULT_ERROR_MESSAGE = 'An error occurred while processing the request.';

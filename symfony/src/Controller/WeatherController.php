@@ -8,6 +8,10 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
+/**
+ * Class WeatherController
+ * @package App\Controller
+ */
 class WeatherController extends AbstractAPIController
 {
     /**
@@ -21,7 +25,7 @@ class WeatherController extends AbstractAPIController
     }
 
     /**
-     * Gets weather data by request query parameters
+     * Gets weather data for the given request query parameters
      *
      * @param Request $request
      * @return JsonResponse
