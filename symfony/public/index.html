@@ -70,8 +70,8 @@
 
     function requestWeathers(city, api_key, success) {
         $.get(API_URL, {
-            city,
-            api_key
+            city: city || undefined,
+            api_key: api_key || undefined
         }, success).fail(handleWeathersRequestError);
     }
 
@@ -110,6 +110,7 @@
         const $tabPane = $('<div class="tab-pane fade" role="tabpanel">...</div>');
         $tabPane.attr('aria-labelledby', tabId);
         $tabPane.attr('id', tabContentId);
+        $tabPane.css('padding', '2em');
 
         $(`#${WEATHERS_TAB_CONTENTS_CONTAINER_ID}`).append($tabPane);
 
@@ -118,7 +119,10 @@
 
     function refreshWeatherData($tabContent, weatherData) {
         $tabContent.html('');
-        const $weatherData = $(`<div><strong>Current Temperature:</strong> ${weatherData.currentTemperature}</div>`);
+        const $weatherData = $(`<div>
+            <strong>Current Temperature:</strong>
+            <span class="badge badge-secondary"> ${weatherData.currentTemperature} °C</span>
+        </div>`);
         $tabContent.append($weatherData);
     }
 
